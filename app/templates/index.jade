@@ -1,16 +1,21 @@
 extends layout
 
 block content
-  div(align="center")
+  br  
+  form.needs-validation(action="", method="post")
+    {{ form.hidden_tag() }}
     .col-md-8.order-md-1
-      form.needs-validation(action="", method="post")
-        {{ form.hidden_tag() }}
-        .form-group.col-md-6.mb-3
-          div(style='display:inline-block;')
-            input.form-control#searchinput(type="text", placeholder="Pesquisar", name="name", required, value='#{name}')
-            button.btn.btn-primary(type='submit')
-              span.glyphicon.glyphicon-search
-  br
+      .row
+        .form-group.col-md-3.mb-3
+          input.form-control#searchinput(type="text", placeholder="Pesquisar", name="name", value='#{name}')
+        .form-group.col-md-3.mb-3
+          {{ form.responsavel(class_="custom-select d-block w-100") }}      
+          {% for error in form.responsavel.errors %}
+          span#errorspan [{{ error }}]
+          {% endfor %}
+        .form-group.col-md-3.mb-3 
+          button.btn.btn-primary(type='submit')
+            span.glyphicon.glyphicon-search
   p(align="center") #{filtermsg}  
   table.table#table
     thead
@@ -24,14 +29,16 @@ block content
         tr
           th
             h4 #{item.name}, Cod. #{item.number}
-            a(href='/edit/#{item.id}')
-              small
-                | Editar
-            |
-            a(href='/show/#{item.id}')
-              small
-                | Visualizar
-            |
-            a(href='/delete/#{item.id}')
-              small
-                | Delete
+            small (#{item.responsavel})
+            div
+              a(href='/edit/#{item.id}')
+                small
+                  | Editar
+              |
+              a(href='/show/#{item.id}')
+                small
+                  | Visualizar
+              |
+              a(href='/delete/#{item.id}')
+                small
+                  | Delete

@@ -26,6 +26,8 @@ def index():
         #content = request.json
         #items = Item.query.filter_by(name=  content["name"]).first()
         name = str(form.name.data)
+        responsavel = str(form.responsavel.data)
+        print(responsavel)
         startsitems = Item.query.filter(Item.name.startswith(name)).all()
         endsitems = Item.query.filter(Item.name.endswith(name)).all()
         items = startsitems + endsitems

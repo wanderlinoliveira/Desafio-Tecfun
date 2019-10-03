@@ -8,14 +8,14 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Sign In')
 
-class ItemForm(FlaskForm):
-    responsaveis = [
+responsaveis = [
         ('', ''),
         ('José', 'José'), #_('José')
         ('Carlos', 'Carlos'),
         ('Maria', 'Maria'),
         ('João', 'João'),       
     ]
+class ItemForm(FlaskForm):
     name = StringField('Nome', validators=[DataRequired()])
     number = IntegerField('Código', validators=[DataRequired(), NumberRange(min=1000, max=9999)])
     qtt = IntegerField('Quantidade', validators=[DataRequired(), NumberRange(min=1)])
@@ -26,5 +26,6 @@ class ItemForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class SearchForm(FlaskForm):
-    name = StringField('', validators=[DataRequired()])
+    name = StringField('')
+    responsavel = SelectField('Responsável', choices=responsaveis)
     submit = SubmitField('Submit')
