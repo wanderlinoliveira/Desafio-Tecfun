@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  div(align="center")
+    .col-md-8.order-md-1
+      form.needs-validation(action="", method="post")
+        {{ form.hidden_tag() }}
+        .form-group.col-md-6.mb-3
+          div(style='display:inline-block;')
+            input.form-control#searchinput(type="text", placeholder="Pesquisar", name="name", required, value='#{name}')
+            button.btn.btn-primary(type='submit')
+              span.glyphicon.glyphicon-search
+  br
+  p(align="center") #{filtermsg}  
+  table.table#table
+    thead
+      tr
+        th Cadastros
+    tbody
+      tr
+        th
+          a(href='/new') NOVO
+      each item in items
+        tr
+          th
+            h4 #{item.name}, Cod. #{item.number}
+            a(href='/edit/#{item.id}')
+              small
+                | Editar
+            |
+            a(href='/show/#{item.id}')
+              small
+                | Visualizar
+            |
+            a(href='/delete/#{item.id}')
+              small
+                | Delete

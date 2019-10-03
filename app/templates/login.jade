@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  div#newitemform(align="center")
+    .col-md-8.order-md-1
+      h4.mb-3
+      form.needs-validation(action="", method="post")
+        {{ form.hidden_tag() }}
+        .form-group.col-md-6.mb-3
+          label(for="username") {{ form.username.label }}
+          input.form-control(type="text",  name="username", required")
+          {% for error in form.username.errors %}
+          span#errorspan [{{ error }}]
+          {% endfor %}             
+        .form-group.col-md-6.mb-3
+          label(for="password") {{ form.password.label }} 
+          input.form-control(type="password", name="password", required")
+          {% for error in form.password.errors %}
+          span#errorspan [{{ error }}]
+          {% endfor %}
+        button.btn.btn-primary(type="submit") Entrar
+        br  
+        small#errormsg(style='color:red;')  #{error}    

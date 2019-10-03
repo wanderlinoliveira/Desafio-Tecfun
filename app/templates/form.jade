@@ -1,0 +1,64 @@
+extends layout
+
+block content
+  div#newitemform(align="center")
+    .col-md-8.order-md-1
+      h4.mb-3 #{pageoption} Item
+      form.needs-validation(action="", method="post")
+        {{ form.hidden_tag() }}
+        .row
+          .form-group.col-md-6.mb-3
+            label(for="name") {{ form.name.label }}
+            input.form-control(type="text",  name="name", required, value="#{item.name}")
+            {% for error in form.name.errors %}
+            span#errorspan [{{ error }}]
+            {% endfor %}             
+          .form-group.col-md-6.mb-3
+            label(for="number") {{ form.number.label }} 
+            if pageoption == 'Novo'
+              input.form-control(type="number", name="number", required, value="#{item.number}", min=1000, max=9999)
+            else
+              input.form-control(type="number", name="number", required, value="#{item.number}", min=1000, max=9999, disabled)             
+            {% for error in form.number.errors %}
+            span#errorspan [{{ error }}]
+            {% endfor %}   
+        .form-group.col-md-6.mb-3
+          label(for="qtt") {{ form.qtt.label }} 
+          input.form-control(type="number", name="qtt", min = 1, required, value="#{item.qtt}")
+          {% for error in form.qtt.errors %}
+          span#errorspan [{{ error }}]
+          {% endfor %}   
+        .form-group.col-md-6.mb-3
+          label(for='responsavel') {{ form.responsavel.label }} 
+          {{ form.responsavel(class_="custom-select d-block w-100") }}      
+          {% for error in form.responsavel.errors %}
+          span#errorspan [{{ error }}]
+          {% endfor %}   
+        .form-group.col-md-6.mb-3
+          label(for='retornar') {{ form.retornar.label }}
+          if item.retornar
+            input(type='checkbox', name="retornar", checked)
+          else 
+            input(type='checkbox', name="retornar")
+          {% for error in form.retornar.errors %}
+          span#errorspan [{{ error }}]
+          {% endfor %}      
+        //.row
+          .form-group.col-md-4.mb-3
+            label(for='country') País             
+            select#country.custom-select.d-block.w-100
+              option(value='') Choose...                 
+              option United States
+          .form-group.col-md-4.mb-3
+            label(for='state') Estado                 
+            select#state.custom-select.d-block.w-100
+              option(value='') Choose...                  
+              option California  
+          .form-group.col-md-4.mb-3
+            label(for='state') Cidade                 
+            select#state.custom-select.d-block.w-100
+              option(value='') Choose...                  
+              option Compton
+        small#errormsg(style='color:red;')  #{error}
+        .row 
+          button.btn.btn-primary(type="submit") Enviar        

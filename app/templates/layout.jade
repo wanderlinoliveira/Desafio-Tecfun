@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title #{title} - Desafio Tecfun
+    link(rel ="shortcut icon", href="/static/images/favicon.ico")
+    link(rel='stylesheet', type='text/css', href='/static/content/bootstrap.min.css')
+    link(rel='stylesheet', type='text/css', href='/static/content/app.css') 
+  body
+    .container
+      div#title
+        a( href='/')
+          img(src="/static/images/logo.jpg", alt="Logo TecFun", height="15%", width="15%")
+        if current_user.is_anonymous == false
+          br
+          a( href='#')
+            small#username
+              | @{{ current_user.username }}
+        h1 Desafio Tecfun
+    .container.body-content
+      block content     
+      br 
+      a( href='/logout')
+        small#username
+          | Logout 
+      hr
+      footer
+        p &copy; #{year} - Desafio Tecfun
+
+    script(src='/static/scripts/bootstrap.js')
+
+    block scripts
