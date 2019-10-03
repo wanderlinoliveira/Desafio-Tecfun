@@ -27,11 +27,25 @@ def index():
         #items = Item.query.filter_by(name=  content["name"]).first()
         name = str(form.name.data)
         responsavel = str(form.responsavel.data)
-        print(responsavel)
-        startsitems = Item.query.filter(Item.name.startswith(name)).all()
-        endsitems = Item.query.filter(Item.name.endswith(name)).all()
-        items = startsitems + endsitems
-        filtermsg = "Exibindo resultados para `" + name + "´"
+        startsitems = list()
+        endsitems = list()
+        responsavelitems = list()
+        if(name is not ""):
+            startsitems = Item.query.filter(Item.name.startswith(name)).all()
+            endsitems = Item.query.filter(Item.name.endswith(name)).all()
+            if(responsavel is not ""):
+                responsavelitems = Item.query.filter_by(responsavel = responsavel).all()
+                filtermsg = "Exibindo resultados para `" + name + "´ & responsável: `" + responsavel + "´"
+            else:
+                filtermsg = "Exibindo resultados para `" + name + "´"               
+        else:
+            if(responsavel is not ""):
+                responsavelitems = Item.query.filter_by(responsavel = responsavel).all()
+                filtermsg = "Exibindo resultados para responsável: `" + responsavel + "´"
+            else:
+                filtermsg = ""
+        items = list(set(startsitems) | set(endsitems) | set(responsavelitems))
+        #items = Item.query.filter( or_(Item.name.startswith(name)  ,   Item.name.endswith(name)) ).all()
         return render_template('index.jade', title='Home', year=year, items= items, form=form, name= name,filtermsg=filtermsg)    
     else:
         items = Item.query.all()
