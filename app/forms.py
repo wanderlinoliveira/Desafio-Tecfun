@@ -10,7 +10,7 @@ class LoginForm(FlaskForm):
 
 responsaveis = [
         ('', ''),
-        ('José', 'José'), #_('José')
+        ('José', 'José'),
         ('Carlos', 'Carlos'),
         ('Maria', 'Maria'),
         ('João', 'João'),       

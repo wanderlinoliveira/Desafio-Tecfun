@@ -32,7 +32,7 @@ html
 
     block scripts
       script.
-        getTrItemLowerCase = function(tr,tag){
+        getTrItemLowerCase = function(tr,tag){ //Get the right item
           let line = tr.childNodes[1];
           let text = line.childNodes[tag].innerText;
           let itemName = ""; 
@@ -53,7 +53,7 @@ html
           let len = tbody.childNodes.length - 1;
           if(searchValue != "" && selectValue != ""){
             console.log(`Filter- ${searchValue} ${selectValue}`);
-            for(let i = 1; i < len; i++){
+            for(let i = 1; i < len; i++){   //Hide and show items
               let tr = tbody.childNodes[i];  
               let trName = getTrItemLowerCase(tr,1);
               let samllName = getTrItemLowerCase(tr,2);
@@ -64,7 +64,7 @@ html
           }else{
             if(searchValue != ""){
               console.log(`Filter- ${searchValue}`);
-              for(let i = 1; i < len; i++){
+              for(let i = 1; i < len; i++){   //Hide and show items
                 let tr = tbody.childNodes[i];  
                 let trName = getTrItemLowerCase(tr,1);
                 if(!trName.includes(searchValue)) tr.style.display='none';  
@@ -74,7 +74,7 @@ html
             }else{
               if(selectValue != ""){
                 console.log(`Filter- ${selectValue}`);
-                for(let i = 1; i < len; i++){
+                for(let i = 1; i < len; i++){   //Hide and show items
                   let tr = tbody.childNodes[i];  
                   let samllName = getTrItemLowerCase(tr,2);
                   if(samllName != selectValue) tr.style.display='none';  

@@ -50,6 +50,7 @@ def logout():
 @app.route('/new', methods=['GET', 'POST'])
 @login_required
 def new():  
+    #empty item to fill inputs 
     item = {
         "item" : "",
         "number" : 1000,
@@ -64,7 +65,7 @@ def new():
         newItem.qtt = form.qtt.data
         newItem.responsavel = form.responsavel.data
         newItem.retornar = form.retornar.data
-        try:
+        try:                               #Treament for validation probrems
             db.session.add(newItem)
             db.session.commit()
             return redirect( url_for('index') )
@@ -89,7 +90,7 @@ def edit(id):
         db.session.commit()
         return redirect( url_for('index') )  
     form.responsavel.default = item.responsavel
-    #form.number.render_kw = {"disabled": ""}
+    #form.number.render_kw = {"disabled": ""} #Set disabled c
     form.process()
     return render_template('form.jade', title='Edit', year=year, form=form, item= item, pageoption='Editar')
 

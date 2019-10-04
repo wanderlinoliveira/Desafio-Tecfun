@@ -43,22 +43,6 @@ block content
           {% for error in form.retornar.errors %}
           span#errorspan [{{ error }}]
           {% endfor %}      
-        //.row
-          .form-group.col-md-4.mb-3
-            label(for='country') País             
-            select#country.custom-select.d-block.w-100
-              option(value='') Choose...                 
-              option United States
-          .form-group.col-md-4.mb-3
-            label(for='state') Estado                 
-            select#state.custom-select.d-block.w-100
-              option(value='') Choose...                  
-              option California  
-          .form-group.col-md-4.mb-3
-            label(for='state') Cidade                 
-            select#state.custom-select.d-block.w-100
-              option(value='') Choose...                  
-              option Compton
         small#errormsg(style='color:red;')  #{error}
         .row 
           button.btn.btn-primary(type="submit") Enviar        
