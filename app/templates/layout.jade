@@ -6,7 +6,7 @@ html
     title #{title} - Desafio Tecfun
     link(rel ="shortcut icon", href="/static/images/favicon.ico")
     link(rel='stylesheet', type='text/css', href='/static/content/bootstrap.min.css')
-    link(rel='stylesheet', type='text/css', href='/static/content/app.css') 
+    link(rel='stylesheet', type='text/css', href='/static/content/app.css')
   body
     .container
       div#title
@@ -31,3 +31,68 @@ html
     script(src='/static/scripts/bootstrap.js')
 
     block scripts
+      script.
+        getTrItemLowerCase = function(tr,tag){
+          let line = tr.childNodes[1];
+          let text = line.childNodes[tag].innerText;
+          let itemName = ""; 
+          if(tag == 1)
+            itemName = text.split(', Cod.')[0];
+          else{
+            itemName = text.split('(')[1];
+            itemName = itemName.split(')')[0];
+          }
+          return itemName.toLowerCase();
+        }
+        showItems = function(){
+          let inputSearch = document.getElementById('searchinput');  
+          let searchValue = inputSearch.value.toLowerCase();
+          let inputSelect = document.getElementsByClassName('custom-select');
+          let selectValue = inputSelect[0].value.toLowerCase();
+          let tbody = document.getElementById('tbody');  
+          let len = tbody.childNodes.length - 1;
+          if(searchValue != "" && selectValue != ""){
+            console.log(`Filter- ${searchValue} ${selectValue}`);
+            for(let i = 1; i < len; i++){
+              let tr = tbody.childNodes[i];  
+              let trName = getTrItemLowerCase(tr,1);
+              let samllName = getTrItemLowerCase(tr,2);
+              if(trName.includes(searchValue) && samllName == selectValue) tr.style.display='table-row';  
+              else tr.style.display='none';
+              i++
+            }
+          }else{
+            if(searchValue != ""){
+              console.log(`Filter- ${searchValue}`);
+              for(let i = 1; i < len; i++){
+                let tr = tbody.childNodes[i];  
+                let trName = getTrItemLowerCase(tr,1);
+                if(!trName.includes(searchValue)) tr.style.display='none';  
+                else tr.style.display='table-row';
+                i++
+              }
+            }else{
+              if(selectValue != ""){
+                console.log(`Filter- ${selectValue}`);
+                for(let i = 1; i < len; i++){
+                  let tr = tbody.childNodes[i];  
+                  let samllName = getTrItemLowerCase(tr,2);
+                  if(samllName != selectValue) tr.style.display='none';  
+                  else tr.style.display='table-row';
+                  i++
+                }
+              }else{
+                console.log("show all");
+                for(let i = 1; i < len; i++){
+                  let tr = tbody.childNodes[i];                
+                  tr.style.display='table-row';        
+                  i++
+                }
+              }
+            }
+          }
+        };
+        let inputSearch = document.getElementById('searchinput');       
+        inputSearch.onkeyup = showItems;
+        let inputSelect = document.getElementsByClassName('custom-select');     
+        inputSelect[0].onchange = showItems;

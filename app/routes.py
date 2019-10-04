@@ -16,40 +16,13 @@ def index():
     items = Item.query.all()
     return render_template('index.jade', title='Home', year=year, items= items)
 """
-@app.route('/', methods=['GET', 'POST'])
-@app.route('/index', methods=['GET', 'POST'])
+@app.route('/')
+@app.route('/index')
 @login_required
 def index():  
-    form = SearchForm()  
-    #if request.method == 'GET':
-    if form.validate_on_submit(): #post request
-        #content = request.json
-        #items = Item.query.filter_by(name=  content["name"]).first()
-        name = str(form.name.data)
-        responsavel = str(form.responsavel.data)
-        startsitems = list()
-        endsitems = list()
-        responsavelitems = list()
-        if(name is not ""):
-            startsitems = Item.query.filter(Item.name.startswith(name)).all()
-            endsitems = Item.query.filter(Item.name.endswith(name)).all()
-            if(responsavel is not ""):
-                responsavelitems = Item.query.filter_by(responsavel = responsavel).all()
-                filtermsg = "Exibindo resultados para `" + name + "´ & responsável: `" + responsavel + "´"
-            else:
-                filtermsg = "Exibindo resultados para `" + name + "´"               
-        else:
-            if(responsavel is not ""):
-                responsavelitems = Item.query.filter_by(responsavel = responsavel).all()
-                filtermsg = "Exibindo resultados para responsável: `" + responsavel + "´"
-            else:
-                filtermsg = ""
-        items = list(set(startsitems) | set(endsitems) | set(responsavelitems))
-        #items = Item.query.filter( or_(Item.name.startswith(name)  ,   Item.name.endswith(name)) ).all()
-        return render_template('index.jade', title='Home', year=year, items= items, form=form, name= name,filtermsg=filtermsg)    
-    else:
-        items = Item.query.all()
-        return render_template('index.jade', title='Home', year=year, items= items, form=form, name="" , filtermsg="")
+    form = SearchForm() 
+    items = Item.query.all()
+    return render_template('index.jade', title='Home', year=year, items= items, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

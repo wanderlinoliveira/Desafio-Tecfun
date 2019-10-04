@@ -2,29 +2,24 @@ extends layout
 
 block content
   br  
-  form.needs-validation(action="", method="post")
-    {{ form.hidden_tag() }}
-    .col-md-8.order-md-1
-      .row
-        .form-group.col-md-3.mb-3
-          input.form-control#searchinput(type="text", placeholder="Pesquisar", name="name", value='#{name}')
-        .form-group.col-md-3.mb-3
-          {{ form.responsavel(class_="custom-select d-block w-100") }}      
-          {% for error in form.responsavel.errors %}
-          span#errorspan [{{ error }}]
-          {% endfor %}
-        .form-group.col-md-3.mb-3 
-          button.btn.btn-primary(type='submit')
-            span.glyphicon.glyphicon-search
-  p(align="center") #{filtermsg}  
+  .col-md-8.order-md-1
+    .row
+      .form-group.col-md-3.mb-3
+        input.form-control#searchinput(type="text", placeholder="Pesquisar", name="name")
+      .form-group.col-md-3.mb-3
+        {{ form.responsavel(class_="custom-select d-block w-100", id_="responsavel") }}      
+        {% for error in form.responsavel.errors %}
+        span#errorspan [{{ error }}]
+        {% endfor %}
+  small#filtermsg ASDASD
   table.table#table
     thead
       tr
         th Cadastros
-    tbody
       tr
         th
           a(href='/new') NOVO
+    tbody#tbody
       each item in items
         tr
           th
