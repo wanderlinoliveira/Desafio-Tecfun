@@ -18,7 +18,7 @@ block content
             if pageoption == 'Novo'
               input.form-control(type="number", name="number", required, value="#{item.number}", min=1000, max=9999)
             else
-              input.form-control(type="number", name="number", required, value="#{item.number}", min=1000, max=9999, disabled)             
+              input.form-control(type="number", name="number", required, value="#{item.number}", min=1000, max=9999, readonly)             
             {% for error in form.number.errors %}
             span#errorspan [{{ error }}]
             {% endfor %}   
