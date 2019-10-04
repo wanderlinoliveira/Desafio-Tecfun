@@ -70,6 +70,7 @@ def new():
             return redirect( url_for('index') )
         except  SQLAlchemyError as err:
             error = str(err.__dict__['orig'])
+            db.session.rollback()
             return render_template('form.jade', title='New', year=year, form=form, item= item, error = error, pageoption='Novo')      
     else:
         return render_template('form.jade', title='New', year=year, form=form, item= item, error = "", pageoption='Novo')
